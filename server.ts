@@ -27,9 +27,9 @@ async function startServer() {
   // API Routes
   app.post("/api/contact", async (req, res) => {
     try {
-      const { firstName, lastName, subject, body } = req.body;
+      const { firstName, lastName, email, subject, body } = req.body;
 
-      if (!firstName || !lastName || !subject || !body) {
+      if (!firstName || !lastName || !email || !subject || !body) {
         return res.status(400).json({ error: "All fields are required" });
       }
 
@@ -44,10 +44,11 @@ async function startServer() {
       const { data, error } = await resend.emails.send({
         from: "Acme <onboarding@resend.dev>", // Replace with your verified domain when going to production
         to: ["carmanear@outlook.com"],
+        reply_to: email,
         subject: `New band inquiry: ${subject}`,
         html: `
           <h3>New Website Message</h3>
-          <p><strong>From:</strong> ${firstName} ${lastName}</p>
+          <p><strong>From:</strong> ${firstName} ${lastName} (${email})</p>
           <p><strong>Subject:</strong> ${subject}</p>
           <hr />
           <p>${body.replace(/\n/g, '<br/>')}</p>

@@ -12,6 +12,7 @@ export default function App() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+    email: "",
     subject: "",
     body: ""
   });
@@ -42,7 +43,7 @@ export default function App() {
       setTimeout(() => {
         setShowContact(false);
         setStatus("idle");
-        setFormData({ firstName: "", lastName: "", subject: "", body: "" });
+        setFormData({ firstName: "", lastName: "", email: "", subject: "", body: "" });
       }, 3000);
     } catch (error) {
       console.error(error);
@@ -119,7 +120,7 @@ export default function App() {
                 onClick={() => setShowContact(true)}
                 className="hover:opacity-70 transition-opacity duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-[1px] after:-bottom-1 after:left-0 after:bg-white after:origin-bottom-right hover:after:scale-x-100 hover:after:origin-bottom-left after:transition-transform after:duration-300 cursor-pointer"
               >
-                Contact Us
+                Contact
               </button>
             </footer>
 
@@ -169,6 +170,18 @@ export default function App() {
                   </div>
                 </div>
                 
+                <div>
+                  <input 
+                    type="email" 
+                    name="email"
+                    required
+                    placeholder="Email Address"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full bg-transparent border-b border-white/30 pb-2 text-sm placeholder:text-white/50 focus:outline-none focus:border-white transition-colors"
+                  />
+                </div>
+
                 <div>
                   <input 
                     type="text" 
