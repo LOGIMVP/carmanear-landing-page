@@ -51,14 +51,11 @@ export default function App() {
   };
 
   return (
-    <div className="relative h-screen w-screen overflow-hidden text-white font-serif selection:bg-white/30">
-      <motion.img
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
+    <div className="relative h-screen w-screen bg-black overflow-hidden text-white font-serif selection:bg-white/30">
+      <img
         src="/vintage-room.jpg"
         alt="Carmanear Band Background"
-        className="absolute inset-0 w-full h-full object-cover object-center"
+        className="absolute inset-0 w-full h-full object-cover object-center animate-in fade-in duration-1000"
         referrerPolicy="no-referrer"
       />
       
