@@ -52,13 +52,19 @@ export default function App() {
 
   return (
     <div className="relative h-screen w-screen overflow-hidden text-white font-serif bg-black selection:bg-white/30">
-      <motion.img
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
+      <style>{`
+        @keyframes customFadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .bg-fade-in {
+          animation: customFadeIn 1.5s ease-out forwards;
+        }
+      `}</style>
+      <img
         src="/vintage-room.jpg"
         alt="Carmanear Band Background"
-        className="absolute inset-0 w-full h-full object-cover object-center"
+        className="absolute inset-0 w-full h-full object-cover object-center bg-fade-in"
       />
       
       {/* Overlay to ensure text readability */}
