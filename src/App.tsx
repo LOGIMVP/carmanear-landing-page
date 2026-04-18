@@ -146,63 +146,72 @@ export default function App() {
               
               <form onSubmit={handleSubmit} className="flex flex-col gap-6 font-sans">
                 <div className="flex flex-col md:flex-row gap-6">
-                  <div className="flex-1">
+                  <div className="flex-1 flex flex-col">
+                    <label className="text-[10px] uppercase tracking-widest text-white/50 mb-2">
+                      First Name <span className="text-red-500/80 text-sm leading-none ml-0.5">*</span>
+                    </label>
                     <input 
                       type="text" 
                       name="firstName"
                       required
-                      placeholder="First Name"
                       value={formData.firstName}
                       onChange={handleInputChange}
-                      className="w-full bg-transparent border-b border-white/30 pb-2 text-sm placeholder:text-white/50 focus:outline-none focus:border-white transition-colors"
+                      className="w-full bg-transparent border-b border-white/30 pb-2 text-sm focus:outline-none focus:border-white transition-colors"
                     />
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 flex flex-col">
+                    <label className="text-[10px] uppercase tracking-widest text-white/50 mb-2">
+                      Last Name
+                    </label>
                     <input 
                       type="text" 
                       name="lastName"
-                      required
-                      placeholder="Last Name"
                       value={formData.lastName}
                       onChange={handleInputChange}
-                      className="w-full bg-transparent border-b border-white/30 pb-2 text-sm placeholder:text-white/50 focus:outline-none focus:border-white transition-colors"
+                      className="w-full bg-transparent border-b border-white/30 pb-2 text-sm focus:outline-none focus:border-white transition-colors"
                     />
                   </div>
                 </div>
                 
-                <div>
+                <div className="flex flex-col">
+                  <label className="text-[10px] uppercase tracking-widest text-white/50 mb-2">
+                    Email Address <span className="text-red-500/80 text-sm leading-none ml-0.5">*</span>
+                  </label>
                   <input 
                     type="email" 
                     name="email"
                     required
-                    placeholder="Email Address"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full bg-transparent border-b border-white/30 pb-2 text-sm placeholder:text-white/50 focus:outline-none focus:border-white transition-colors"
+                    className="w-full bg-transparent border-b border-white/30 pb-2 text-sm focus:outline-none focus:border-white transition-colors"
                   />
                 </div>
 
-                <div>
+                <div className="flex flex-col">
+                  <label className="text-[10px] uppercase tracking-widest text-white/50 mb-2">
+                    Subject Line <span className="text-red-500/80 text-sm leading-none ml-0.5">*</span>
+                  </label>
                   <input 
                     type="text" 
                     name="subject"
                     required
-                    placeholder="Subject Line"
                     value={formData.subject}
                     onChange={handleInputChange}
-                    className="w-full bg-transparent border-b border-white/30 pb-2 text-sm placeholder:text-white/50 focus:outline-none focus:border-white transition-colors"
+                    className="w-full bg-transparent border-b border-white/30 pb-2 text-sm focus:outline-none focus:border-white transition-colors"
                   />
                 </div>
                 
-                <div>
+                <div className="flex flex-col">
+                  <label className="text-[10px] uppercase tracking-widest text-white/50 mb-2">
+                    Message <span className="text-red-500/80 text-sm leading-none ml-0.5">*</span>
+                  </label>
                   <textarea 
                     name="body"
                     required
-                    placeholder="Message"
                     rows={4}
                     value={formData.body}
                     onChange={handleInputChange}
-                    className="w-full bg-transparent border-b border-white/30 pb-2 text-sm placeholder:text-white/50 focus:outline-none focus:border-white transition-colors resize-none"
+                    className="w-full bg-transparent border-b border-white/30 pb-2 text-sm focus:outline-none focus:border-white transition-colors resize-none"
                   />
                 </div>
                 

@@ -29,8 +29,8 @@ async function startServer() {
     try {
       const { firstName, lastName, email, subject, body } = req.body;
 
-      if (!firstName || !lastName || !email || !subject || !body) {
-        return res.status(400).json({ error: "All fields are required" });
+      if (!firstName || !email || !subject || !body) {
+        return res.status(400).json({ error: "Required fields are missing" });
       }
 
       // If no key is set yet, we simulate success so the UI works, but note the error
@@ -48,7 +48,7 @@ async function startServer() {
         subject: `New band inquiry: ${subject}`,
         html: `
           <h3>New Website Message</h3>
-          <p><strong>From:</strong> ${firstName} ${lastName} (${email})</p>
+          <p><strong>From:</strong> ${firstName} ${lastName ? lastName : ''} (${email})</p>
           <p><strong>Subject:</strong> ${subject}</p>
           <hr />
           <p>${body.replace(/\n/g, '<br/>')}</p>
