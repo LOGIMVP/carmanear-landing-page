@@ -10,11 +10,10 @@ import { motion, AnimatePresence } from "motion/react";
 export default function App() {
   const [showContact, setShowContact] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
     subject: "",
-    body: ""
+    message: ""
   });
 
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -29,13 +28,27 @@ export default function App() {
     setStatus("submitting");
 
     try {
-      const response = await fetch("/api/contact", {
+      const staticFormsKey = import.meta.env.VITE_STATICFORMS_ACCESS_KEY;
+      
+      const response = await fetch("https://api.staticforms.dev/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        headers: { 
+          "Accept": "application/json",
+          "Content-Type": "application/json" 
+        },
+        body: JSON.stringify({
+          apiKey: staticFormsKey || "placeholder",
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          honeypot: ""
+        }),
       });
 
-      if (!response.ok) {
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || result.success === false) {
         throw new Error("Failed to send message");
       }
 
@@ -43,7 +56,7 @@ export default function App() {
       setTimeout(() => {
         setShowContact(false);
         setStatus("idle");
-        setFormData({ firstName: "", lastName: "", email: "", subject: "", body: "" });
+        setFormData({ name: "", email: "", subject: "", message: "" });
       }, 3000);
     } catch (error) {
       console.error(error);
@@ -145,32 +158,18 @@ export default function App() {
               <h2 className="text-3xl md:text-4xl font-medium tracking-tight mb-8 text-center text-white drop-shadow-sm">Contact</h2>
               
               <form onSubmit={handleSubmit} className="flex flex-col gap-6 font-sans">
-                <div className="flex flex-col md:flex-row gap-6">
-                  <div className="flex-1 flex flex-col">
-                    <label className="text-[10px] uppercase tracking-widest text-white/50 mb-2">
-                      First Name <span className="text-red-500/80 text-sm leading-none ml-0.5">*</span>
-                    </label>
-                    <input 
-                      type="text" 
-                      name="firstName"
-                      required
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      className="w-full bg-transparent border-b border-white/30 pb-2 text-sm focus:outline-none focus:border-white transition-colors"
-                    />
-                  </div>
-                  <div className="flex-1 flex flex-col">
-                    <label className="text-[10px] uppercase tracking-widest text-white/50 mb-2">
-                      Last Name
-                    </label>
-                    <input 
-                      type="text" 
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      className="w-full bg-transparent border-b border-white/30 pb-2 text-sm focus:outline-none focus:border-white transition-colors"
-                    />
-                  </div>
+                <div className="flex flex-col">
+                  <label className="text-[10px] uppercase tracking-widest text-white/50 mb-2">
+                    Name <span className="text-red-500/80 text-sm leading-none ml-0.5">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full bg-transparent border-b border-white/30 pb-2 text-sm focus:outline-none focus:border-white transition-colors"
+                  />
                 </div>
                 
                 <div className="flex flex-col">
@@ -206,10 +205,10 @@ export default function App() {
                     Message <span className="text-red-500/80 text-sm leading-none ml-0.5">*</span>
                   </label>
                   <textarea 
-                    name="body"
+                    name="message"
                     required
                     rows={4}
-                    value={formData.body}
+                    value={formData.message}
                     onChange={handleInputChange}
                     className="w-full bg-transparent border-b border-white/30 pb-2 text-sm focus:outline-none focus:border-white transition-colors resize-none"
                   />
